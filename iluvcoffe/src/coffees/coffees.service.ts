@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Connection, Repository } from 'typeorm';
@@ -7,6 +7,8 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from '../events/entities/event.entity';
+import { ConfigService, ConfigType } from '@nestjs/config';
+import coffeesConfig from './config/coffees.config';
 
 
 @Injectable()
@@ -17,8 +19,28 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
 
-        private readonly connection: Connection
-    ) { }
+        @Inject(coffeesConfig.KEY)   //💡 Optimal / Best-practice
+        private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+
+        private readonly configService: ConfigService,
+        private readonly connection: Connection,
+    ) {
+        /**
+        const databaseHost = this.configService.get<string>(
+            // 'DATABASE_HOST' , // 👈 using a .env file 
+            'database.host',     // 👈 using a custom file 
+            'localhost'          // is using such us a default value
+            );  
+        console.log(databaseHost);
+        */
+
+        /** Using partial registration strategy  'coffees.foo' */
+        const coffeesConfig_v0 = this.configService.get<string>('coffees');
+        console.log(coffeesConfig_v0);
+
+        console.log(coffeesConfiguration.foo);   // 💡 Now strongly typed, and able to access properties via:
+
+    }
 
     findAll(paginationQuery: PaginationQueryDto) {
         const { limit, offset } = paginationQuery;
