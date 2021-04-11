@@ -7,7 +7,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true, // Only cast fields in Dto
     forbidNonWhitelisted: true, // Throw errors when whitelisted properties are found
-    transform: true, // allow do instanceOf of a global body to Dto
+    transform: true, // allow do instanceOf of a global body to Dto; it used to validate types 
+    transformOptions: {
+      enableImplicitConversion: true //this allow remove @Type in attribute
+    }
   }));
   await app.listen(3000);
 }
