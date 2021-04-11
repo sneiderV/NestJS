@@ -19,27 +19,12 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
 
-        @Inject(coffeesConfig.KEY)   //💡 Optimal / Best-practice
+        @Inject(coffeesConfig.KEY)
         private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
 
-        private readonly configService: ConfigService,
         private readonly connection: Connection,
     ) {
-        /**
-        const databaseHost = this.configService.get<string>(
-            // 'DATABASE_HOST' , // 👈 using a .env file 
-            'database.host',     // 👈 using a custom file 
-            'localhost'          // is using such us a default value
-            );  
-        console.log(databaseHost);
-        */
-
-        /** Using partial registration strategy  'coffees.foo' */
-        const coffeesConfig_v0 = this.configService.get<string>('coffees');
-        console.log(coffeesConfig_v0);
-
-        console.log(coffeesConfiguration.foo);   // 💡 Now strongly typed, and able to access properties via:
-
+        console.log(coffeesConfiguration.foo);   // 💡 Now strongly typed, and able to access properties via dot method
     }
 
     findAll(paginationQuery: PaginationQueryDto) {

@@ -10,12 +10,6 @@ import appConfig from './config/app.config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      //envFilePath: '.environment'
-      //ignoreEnvFile: true,
-      // validationSchema: Joi.object({    👈 Joi is a usefull library to verify config data  
-      //   DATABASE_HOST: Joi.required(),
-      //   DATABASE_PORT: Joi.number().default(5432),
-      // }),
       load: [appConfig], // 👈 this use a Custom configuration file
     }),
     CoffeesModule,
