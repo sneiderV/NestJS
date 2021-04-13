@@ -16,7 +16,7 @@ async function bootstrap() {
   }));
 
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalGuards(new ApiKeyGuard());
+  //app.useGlobalGuards(new ApiKeyGuard()); remove because en /common have a module that use a guards such us guards
   
   await app.listen(3000);
 }

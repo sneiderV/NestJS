@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res, SetMetadata } from '@nestjs/common';
+import { Public } from 'src/common/decorators/public.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
@@ -12,6 +13,8 @@ export class CoffeesController {
   ) {}
 
 
+  //@SetMetadata('isPublic',true)
+  @Public()  //👈 its the best practice of use @SetMetadata()
   @Get()
   //findAll(@Res() response) {
   findAll(@Query() paginationQuery: PaginationQueryDto) {
