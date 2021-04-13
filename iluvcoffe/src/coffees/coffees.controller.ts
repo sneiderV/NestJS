@@ -17,7 +17,10 @@ export class CoffeesController {
   @Public()  //👈 its the best practice of use @SetMetadata()
   @Get()
   //findAll(@Res() response) {
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
+  async findAll(@Query() paginationQuery: PaginationQueryDto) {
+   
+    // await new Promise( resolve => { setTimeout(resolve, 5000)} ) //👈 use it if you want test Timeout interceptor
+   
     const { limit, offset } = paginationQuery;
     console.log(`This action returns all coffees. Limit ${limit}, offset: ${offset}`);
     //response.status(200).send(`This action returns all coffees`);
