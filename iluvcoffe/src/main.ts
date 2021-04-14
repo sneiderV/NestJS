@@ -1,6 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { ApiKeyGuard } from './common/guards/api-key.guard';
+import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
+import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +16,13 @@ async function bootstrap() {
       enableImplicitConversion: true //this allow remove @Type in attribute
     }
   }));
+
+  app.useGlobalFilters(new HttpExceptionFilter());
+  //app.useGlobalGuards(new ApiKeyGuard()); remove because en /common have a module that use a guards such us guards
+  app.useGlobalInterceptors(
+    new WrapResponseInterceptor(),
+    new TimeoutInterceptor()
+    );
   await app.listen(3000);
 }
 bootstrap();
