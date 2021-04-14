@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res, SetMetadata } from '@nestjs/common';
+import { ApiForbiddenResponse, ApiResponse } from '@nestjs/swagger';
 import { Protocol } from '../common/decorators/protocol.decorator';
 import { Public } from '../common/decorators/public.decorator';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
@@ -15,6 +16,8 @@ export class CoffeesController {
   ) {}
 
 
+  //@ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiForbiddenResponse({description: 'Forbidden.'})
   //@SetMetadata('isPublic',true)
   @Public()  //👈 its the best practice of use @SetMetadata()
   @Get()
