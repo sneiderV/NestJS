@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res, SetMetadata } from '@nestjs/common';
-import { Public } from 'src/common/decorators/public.decorator';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
+import { Protocol } from '../common/decorators/protocol.decorator';
+import { Public } from '../common/decorators/public.decorator';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -18,8 +19,8 @@ export class CoffeesController {
   @Public()  //👈 its the best practice of use @SetMetadata()
   @Get()
   //findAll(@Res() response) {
-  async findAll(@Query() paginationQuery: PaginationQueryDto) {
-   
+  async findAll(@Protocol('something') protocol: string, @Query() paginationQuery: PaginationQueryDto) {
+   console.log(protocol);
     // await new Promise( resolve => { setTimeout(resolve, 5000)} ) //👈 use it if you want test Timeout interceptor
    
     const { limit, offset } = paginationQuery;
