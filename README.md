@@ -1,1 +1,9 @@
 # NestJS
+
+## .env file
+DATABASE_USER=***
+DATABASE_PASSWORD=***
+DATABASE_NAME=***
+DATABASE_PORT=***
+DATABASE_HOST=***
+API_KEY=***
