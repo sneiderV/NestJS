@@ -19,12 +19,12 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
 
-        @Inject(coffeesConfig.KEY)
-        private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+        // @Inject(coffeesConfig.KEY)
+        // private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
 
         private readonly connection: Connection,
     ) {
-        console.log(coffeesConfiguration.foo);   // 💡 Now strongly typed, and able to access properties via dot method
+        // console.log(coffeesConfiguration.foo);   // 💡 Now strongly typed, and able to access properties via dot method
     }
 
     findAll(paginationQuery: PaginationQueryDto) {
